@@ -3,7 +3,14 @@ import { MoodsCollection } from "../api/moods";
 import { useTracker } from "meteor/react-meteor-data";
 import { Session } from "meteor/session";
 
-const colorMap = { happy: "yellow", sad: "grey" };
+const colorMap = {
+  happy: "yellow",
+  sad: "grey",
+  excited: "orange",
+  meh: "#4b644c",
+  angry: "red",
+  lazy: "#bc9fb5",
+};
 
 export const App = () => {
   Date.prototype.getDOY = function () {
@@ -22,57 +29,57 @@ export const App = () => {
     Meteor.subscribe("moods");
     const moodDays = MoodsCollection.find({}).fetch();
 
-    const moodsByDay =  moodDays.reduce((acc, item) => {
+    const moodsByDay = moodDays.reduce((acc, item) => {
       acc[item.day] = item;
       return acc;
     }, {});
-    return moodsByDay
+    return moodsByDay;
   }, []);
   // console.log({num, allMoods, colorMap})
   return (
-    <div>
+    <div className='app'>
       <h1>Mood Tracker</h1>
+      <h3>Today is : {today.toLocaleDateString("lt-LT")}</h3>
       <div>
+        <h2>Select your mood</h2>
         <select name='moods' id='select'>
           <option value='happy'>Happy</option>
           <option value='sad'>Sad</option>
+          <option value='excited'>Excited</option>
+          <option value='meh'>Mehh</option>
+          <option value='lazy'>Lazy</option>
+          <option value='angry'>Angry</option>
         </select>
       </div>
-      <input
-        type='date'
-        name='moodDay'
-        min='2021-01-01'
-        max='2021-12-31'
-        defaultValue={today.toDateString("yyyy-MM-dd")}
-      />
-      <h1>Today is : {today.toLocaleDateString("lt-LT")}</h1>
-      <div className='container'>
-        {num.map((item, index) => (
-          <button
-            style={{backgroundColor: colorMap[allMoods[item]?.mood]}}
-            key={index}
-            value={item}
-            className='squere'
-            onClick={(e) => {
-              e.preventDefault();
-              e.persist();
+      <div className='table'>
+        <div className='container'>
+          {num.map((item, index) => (
+            <button
+              style={{ backgroundColor: colorMap[allMoods[item]?.mood] }}
+              key={index}
+              value={item}
+              className='square'
+              onClick={(e) => {
+                e.preventDefault();
+                e.persist();
 
-              Meteor.call(
-                "InsertMood",
-                e.target.value,
-                select.value,
-                (error, result) => {
-                  Session.set({
-                    day: e.target.value,
-                    mood: select.value,
-                  });
-                }
-              );
-            }}
-          >
-            {item}
-          </button>
-        ))}
+                Meteor.call(
+                  "InsertMood",
+                  e.target.value,
+                  select.value,
+                  (error, result) => {
+                    Session.set({
+                      day: e.target.value,
+                      mood: select.value,
+                    });
+                  }
+                );
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

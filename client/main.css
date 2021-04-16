@@ -1,9 +1,28 @@
 body {
-  padding: 10px;
-  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.squere {
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.app h1,
+h3 {
+  text-align: center;
+  color: #12053a;
+}
+
+.app h2 {
+  color: #12053a;
+}
+
+.square {
   width: 2rem;
   height: 2rem;
   border: thin solid black;
@@ -13,27 +32,27 @@ body {
   padding: 0;
 }
 
-.squere:hover {
+.square:hover {
   cursor: pointer;
   background: aqua;
 }
 
-.squereYellow {
-  width: 2rem;
-  height: 2rem;
-  border: thin solid black;
-  outline: none;
-  margin: 0.2rem;
-  border-radius: 5px;
-  background: yellow;
+.table {
+  display: flex;
+  width: 90vw;
+  justify-content: center;
 }
 
-.squereSad {
-  width: 2rem;
-  height: 2rem;
-  border: thin solid black;
-  outline: none;
-  margin: 0.2rem;
-  border-radius: 5px;
-  background: gray;
+.container {
+  border: solid thin grey;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 68vw;
+  margin-top: 1.5rem;
+}
+
+.app button {
+  font-weight: 700;
+  height: 2.5rem;
+  width: 2.5rem;
 }
