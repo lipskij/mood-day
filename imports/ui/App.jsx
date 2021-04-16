@@ -41,7 +41,7 @@ export const App = () => {
       <h1>Mood Tracker</h1>
       <h3>Today is : {today.toLocaleDateString("lt-LT")}</h3>
       <div>
-        <h2>Select your mood</h2>
+        <h2>Select your mood 😎</h2>
         <select name='moods' id='select'>
           <option value='happy'>Happy</option>
           <option value='sad'>Sad</option>
