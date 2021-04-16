@@ -2,6 +2,11 @@ body {
   padding: 0;
   margin: 0;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
+  background-image: url('/4853433.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+
 }
 
 .app {
@@ -49,6 +54,7 @@ h3 {
   padding: 1rem;
   width: 68vw;
   margin-top: 1.5rem;
+  background-color: white;
 }
 
 .app button {

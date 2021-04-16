@@ -35,7 +35,7 @@ export const App = () => {
     }, {});
     return moodsByDay;
   }, []);
-  // console.log({num, allMoods, colorMap})
+
   return (
     <div className='app'>
       <h1>Mood Tracker</h1>
@@ -51,6 +51,7 @@ export const App = () => {
           <option value='angry'>Angry</option>
         </select>
       </div>
+
       <div className='table'>
         <div className='container'>
           {num.map((item, index) => (
@@ -62,7 +63,6 @@ export const App = () => {
               onClick={(e) => {
                 e.preventDefault();
                 e.persist();
-
                 Meteor.call(
                   "InsertMood",
                   e.target.value,
