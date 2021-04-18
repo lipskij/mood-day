@@ -40,6 +40,14 @@ export const App = () => {
     <div className='app'>
       <h1>Mood Tracker</h1>
       <h3>Today is : {today.toLocaleDateString("lt-LT")}</h3>
+      <div className='color-table'>
+        <h4 style={{ backgroundColor: "yellow", width: "5rem" }}>Happy</h4>
+        <h4 style={{ backgroundColor: "grey", width: "5rem", color: 'white' }}>Sad</h4>
+        <h4 style={{ backgroundColor: "orange", width: "5rem" }}>Excited</h4>
+        <h4 style={{ backgroundColor: "#4b644c", width: "5rem", color: 'white' }}>Meh</h4>
+        <h4 style={{ backgroundColor: "#bc9fb5", width: "5rem" }}>Lazy</h4>
+        <h4 style={{ backgroundColor: "red", width: "5rem" }}>Angry</h4>
+      </div>
       <div>
         <h2>Select your mood 😎</h2>
         <select name='moods' id='select'>

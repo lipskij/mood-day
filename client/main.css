@@ -27,6 +27,14 @@ h3 {
   color: #12053a;
 }
 
+.color-table {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 90vw;
+  text-align: center;
+}
+
 .square {
   width: 2rem;
   height: 2rem;
