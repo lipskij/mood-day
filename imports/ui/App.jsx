@@ -13,37 +13,47 @@ const colorMap = {
 };
 
 export const App = () => {
-  const [month, setMonth] = useState("");
+  const [month, setMonth] = useState(1);
 
-  Date.prototype.getDOY = function () {
-    const year = new Date(this.getFullYear(), 0, 1);
-    return Math.ceil((this - year) / 86400000);
-  };
+  // Date.prototype.getDOY = function () {
+  //   const year = new Date(this.getFullYear(), 0, 1);
+  //   return Math.ceil((this - year) / 86400000);
+  // };
   const today = new Date();
-  const allDays = today.getDOY().toString();
+  // const allDays = today.getDOY().toString();
 
   // get number of days in selected month
   const daysInMonth = (months, year) => {
     return new Date(year, months, 0).getDate();
   };
-
-  let num = [];
-  for (let i = 0; i < +allDays; i++) {
-    num.push(i + 1);
+  let mon = [];
+  for (let i = 0; i <= daysInMonth(month, 2021); i++) {
+    mon.push(i + 1);
   }
+
+  // let num = [];
+  // for (let i = 0; i < +allDays; i++) {
+  //   num.push(i + 1);
+  // }
 
   const allMoods = useTracker(() => {
     Meteor.subscribe("moods");
     const moodDays = MoodsCollection.find({}).fetch();
-
+    
+    console.log(moodDays)
     const moodsByDay = moodDays.reduce((acc, item) => {
+      console.log(acc)
       acc[item.day] = item;
+      console.log(item)
+      acc[item.month] = item;
+      console.log(item)
       return acc;
     }, {});
     return moodsByDay;
   }, []);
 
-  console.log(daysInMonth(month, 2021));
+  // need to render selected months
+  // and saved days of that month
 
   return (
     <div className='app'>
@@ -94,7 +104,7 @@ export const App = () => {
         </div>
       </div>
 
-      <div className='table'>
+      {/* <div className='table'>
         <div className='container'>
           {num.map((item, index) => (
             <button
@@ -124,9 +134,39 @@ export const App = () => {
             </button>
           ))}
         </div>
+      </div> */}
+      <div className='table'>
+        <div className='container'>
+          {mon.map((index, item) => (
+            <button
+              style={{ backgroundColor: colorMap[allMoods[item]?.mood] }}
+              key={index}
+              value={item}
+              className='square'
+              onClick={(e) => {
+                e.preventDefault();
+                e.persist();
+                Meteor.call(
+                  "InsertMood",
+                  month,
+                  e.target.value,
+                  select.value,
+                  (error, result) => {
+                    Session.set({
+                      month: month,
+                      day: e.target.value,
+                      mood: select.value,
+                    });
+                  }
+                );
+              }}
+            >
+              {index}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-//render out month when selected
