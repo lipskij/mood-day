@@ -13,7 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 90vw;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -67,8 +67,16 @@ h3 {
   background-color: white;
 }
 
-.app button {
-  font-weight: 700;
-  height: 2.5rem;
-  width: 2.5rem;
+.selectors {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.month-table,
+.mood-table {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

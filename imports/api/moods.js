@@ -8,8 +8,8 @@ export const MoodsCollection = new Mongo.Collection("moods");
 
 if (Meteor.isServer) {
   // This code only runs on the server
-  Meteor.publish('moods', () => {
-    // TODO: return only moods 
+  Meteor.publish("moods", () => {
+    // TODO: return only moods
     return MoodsCollection.find();
   });
 }
@@ -18,12 +18,13 @@ if (Meteor.isServer) {
 // update collection
 
 Meteor.methods({
-  InsertMood(day, mood) {
+  InsertMood(month,day, mood) {
     const moods = MoodsCollection.insert({
-        day,
-        mood,
-        updatedAt: new Date()
+      month,
+      day,
+      mood,
+      updatedAt: new Date(),
     });
-    return {moods}
+    return { moods };
   },
 });
