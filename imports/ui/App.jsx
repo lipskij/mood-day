@@ -1,64 +1,14 @@
 import React, { useState } from "react";
-import { MoodsCollection } from "../api/moods";
-import { useTracker } from "meteor/react-meteor-data";
-import { Session } from "meteor/session";
-
-const colorMap = {
-  happy: "#f3f851",
-  sad: "#9b99fd",
-  excited: "orange",
-  meh: "#819b82",
-  angry: "#e09696",
-  lazy: "#a09c9f",
-};
+import Month from "./months";
 
 export const App = () => {
-  const [month, setMonth] = useState(1);
 
-  // Date.prototype.getDOY = function () {
-  //   const year = new Date(this.getFullYear(), 0, 1);
-  //   return Math.ceil((this - year) / 86400000);
-  // };
   const today = new Date();
-  // const allDays = today.getDOY().toString();
-
-  // get number of days in selected month
-  const daysInMonth = (months, year) => {
-    return new Date(year, months, 0).getDate();
-  };
-  let mon = [];
-  for (let i = 0; i <= daysInMonth(month, 2021); i++) {
-    mon.push(i + 1);
-  }
-
-  // let num = [];
-  // for (let i = 0; i < +allDays; i++) {
-  //   num.push(i + 1);
-  // }
-
-  const allMoods = useTracker(() => {
-    Meteor.subscribe("moods");
-    const moodDays = MoodsCollection.find({}).fetch();
-    
-    console.log(moodDays)
-    const moodsByDay = moodDays.reduce((acc, item) => {
-      console.log(acc)
-      acc[item.day] = item;
-      console.log(item)
-      acc[item.month] = item;
-      console.log(item)
-      return acc;
-    }, {});
-    return moodsByDay;
-  }, []);
-
-  // need to render selected months
-  // and saved days of that month
 
   return (
     <div className='app'>
       <h1>Mood Tracker</h1>
-      <h3>Today is : {today.toLocaleDateString("lt-LT")}</h3>
+
       <div className='color-table'>
         <h4 style={{ backgroundColor: "#f3f851", width: "5rem" }}>Happy</h4>
         <h4 style={{ backgroundColor: "#9b99fd", width: "5rem" }}>Sad</h4>
@@ -79,94 +29,12 @@ export const App = () => {
             <option value='angry'>Angry</option>
           </select>
         </div>
-        <div className='month-table'>
-          <h2>Month 📅</h2>
-          <div className='month-column'>
-            <select
-              name='months'
-              id='months'
-              onChange={(e) => setMonth(e.target.value)}
-            >
-              <option value='1'>January</option>
-              <option value='2'>February</option>
-              <option value='3'>March</option>
-              <option value='4'>April</option>
-              <option value='5'>May</option>
-              <option value='6'>June</option>
-              <option value='7'>July</option>
-              <option value='8'>August</option>
-              <option value='9'>September</option>
-              <option value='10'>October</option>
-              <option value='11'>November</option>
-              <option value='12'>December</option>
-            </select>
-          </div>
-        </div>
       </div>
+      <h2>Today is : {today.toLocaleDateString("lt-LT")}</h2>
 
-      {/* <div className='table'>
-        <div className='container'>
-          {num.map((item, index) => (
-            <button
-              style={{ backgroundColor: colorMap[allMoods[item]?.mood] }}
-              key={index}
-              value={item}
-              className='square'
-              onClick={(e) => {
-                e.preventDefault();
-                e.persist();
-                Meteor.call(
-                  "InsertMood",
-                  month,
-                  e.target.value,
-                  select.value,
-                  (error, result) => {
-                    Session.set({
-                      month: month,
-                      day: e.target.value,
-                      mood: select.value,
-                    });
-                  }
-                );
-              }}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </div> */}
-      <div className='table'>
-        <div className='container'>
-          {mon.map((index, item) => (
-            <button
-              style={{ backgroundColor: colorMap[allMoods[item]?.mood] }}
-              key={index}
-              value={item}
-              className='square'
-              onClick={(e) => {
-                e.preventDefault();
-                e.persist();
-                Meteor.call(
-                  "InsertMood",
-                  month,
-                  e.target.value,
-                  select.value,
-                  (error, result) => {
-                    Session.set({
-                      month: month,
-                      day: e.target.value,
-                      mood: select.value,
-                    });
-                  }
-                );
-              }}
-            >
-              {index}
-            </button>
-          ))}
-        </div>
-      </div>
+      <Month />
     </div>
   );
 };
 
+// save moods by month (months will have the same days 1-31)
