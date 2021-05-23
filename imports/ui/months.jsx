@@ -47,17 +47,15 @@ const monthNames = [
 ];
 
 const Month = () => {
-
   const allMoods = useTracker(() => {
     Meteor.subscribe("moods");
     const moodDays = MoodsCollection.find({}).fetch();
 
     const moodsByDay = moodDays.reduce((acc, item) => {
-      console.log(item)
       acc[item.date.toISOString()] = item;
-      console.log(acc)
       return acc;
     }, {});
+
     return moodsByDay;
   }, []);
 
@@ -68,8 +66,24 @@ const Month = () => {
           <p>{monthNames[monthNumber - 1]}</p>
           {range(daysInMonth(monthNumber, currentYear)).map((day) => (
             <button
+              style={{
+                backgroundColor:
+                  colorMap[
+                    allMoods[
+                      new Date(
+                        currentYear,
+                        monthNumber - 1,
+                        day + 1
+                      ).toISOString()
+                    ]?.mood
+                  ],
+              }}
               key={day}
-              value={new Date(currentYear, monthNumber - 1, day +1).toISOString()}
+              value={new Date(
+                currentYear,
+                monthNumber - 1,
+                day + 1
+              ).toISOString()}
               className='square'
               onClick={(e) => {
                 e.preventDefault();
