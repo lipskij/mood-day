@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MoodsCollection } from "../api/moods";
 import { useTracker } from "meteor/react-meteor-data";
 import { Session } from "meteor/session";
@@ -22,30 +22,31 @@ const currentYear = new Date().getFullYear();
 
 // skaityk sita shuda
 // let numDaysInYear = range(12).reduce(
-//   (acc, monthNumber) => acc + daysInMonth(monthNumber, currentYear),
-//   0
-// );
-
-// numDaysInYear = 0;
-// for (let monthNumber = 1; monthNumber == 12; monthNumber++) {
-//   numDaysInYear += daysInMonth(monthNumber, currentYear);
-// }
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
+  //   (acc, monthNumber) => acc + daysInMonth(monthNumber, currentYear),
+  //   0
+  // );
+  
+  // numDaysInYear = 0;
+  // for (let monthNumber = 1; monthNumber == 12; monthNumber++) {
+    //   numDaysInYear += daysInMonth(monthNumber, currentYear);
+    // }
+    
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    
+    console.log(monthNames[12 - 1] )
 const Month = () => {
   const allMoods = useTracker(() => {
     Meteor.subscribe("moods");
