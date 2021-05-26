@@ -19,7 +19,7 @@ export const App = () => {
       </div>
       <div className='selectors'>
         <div className='mood-table'>
-          <h2>Mood 😎</h2>
+          <h2>Mood</h2>
           <select name='moods' id='select'>
             <option value='happy'>Happy</option>
             <option value='sad'>Sad</option>
